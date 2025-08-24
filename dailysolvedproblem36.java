@@ -25,53 +25,31 @@ nums[i] is either 0 or 1.*/
 //solution
 class Solution {
     public int longestSubarray(int[] nums) {
-        int i=0;
-        int j=0;
-        int count=0;
-        int ele=0;
-        int zero=0;
-        for(int k=0;k<nums.length;k++){
-            if(nums[k]==0){
-                zero++;
-            }
-        }
-        if(zero==nums.length){
-            return 0;
-        }
-        if(zero==1){
-            return nums.length-1;
-        }
+        int i=0,j=0,ele=0,sec=0;
+        boolean flag=true;
         while(j<nums.length){
-             if(nums[j]==1){
+            if(nums[j]==1){
                 j++;
             }
-            else if(nums[j]==0&&(nums[i]==1)){
-                if(count==0){
-                    j++;
-                count++;
-                }
-                else {
-                   if ((j-i-1)>ele){
-                    ele=j-i-1;
-                }
-                count=0;
-                i++;
-                j=i+1;
-            }
+            else if(nums[j]==0&&flag){
+                flag=false;
+                sec=j;
+                j++;
             }
             else{
                 if((j-i-1)>ele){
                     ele=j-i-1;
                 }
-                count=0;
-                i++;
-                j=i+1;
+                i=sec+1;
+                flag=true;
+                
             }
         }
-        if(((j-i-1)>ele)){
-                    ele=j-i-1;
-                }
-                
+       
+        if((j-i-1)>ele)
+        {
+            ele=j-i-1;
+        }
         return ele;
     }
 }
